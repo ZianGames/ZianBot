@@ -1,0 +1,68 @@
+{
+  "template": {
+      "usage": null,
+      "perms": "Everyone",
+      "description": "None",
+      "category": "General"
+  },
+  "help": {
+      "usage": null,
+      "perms": "Everyone",
+      "description": "Displays a list of commands available.",
+      "category": "General"
+  },
+  "invite": {
+      "usage": null,
+      "perms": "Everyone",
+      "description": "DM's the user a bot invite link so they can add me to their Discord server.",
+      "category": "Information"
+  },
+  "say": {
+      "usage": "<text>",
+      "perms": "Admin",
+      "description": "I will send the arguments provided in a message.",
+      "category": "General"
+  },
+  "userinfo": {
+      "usage": "<user>",
+      "perms": "Everyone",
+      "description": "Displays information about the user provided in the User ID. Leave the User ID blank to display information about yourself.",
+      "category": "Information"
+  },
+  "preventsuicide": {
+      "usage": null,
+      "perms": "Everyone",
+      "description": "Displays the Suicide Prevention Hotline number.",
+      "category": "Information"
+  },
+  "owner": {
+      "usage": "<user>",
+      "perms": "Super Owner",
+      "description": "Promotes the provided user to Owner.",
+      "category": "Administration"
+  },
+  "admin": {
+      "usage": "<user>",
+      "perms": "Owner",
+      "description": "Promotes the provided user to Admin.",
+      "category": "Administration"
+  },
+  "suckit": {
+    "usage": "<user>",
+    "perms": "Admin",
+    "description": "Tells the user to go suck it.",
+    "category": "General"
+  },
+  "updateusers": {
+    "usage": null,
+    "perms": "Admin",
+    "description": "Updates the bot's User List.",
+    "category": "Administration"
+  },
+  "giveperm": {
+    "usage": "<mention> <perm>",
+    "perms": "Super Owner",
+    "description": "Gives a permission to the specified user.",
+    "category": "Administration"
+  }
+}
