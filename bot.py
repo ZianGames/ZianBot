@@ -251,7 +251,7 @@ class cmd:
             user = message.author
         else:
             print(args[0])
-            if args[0] == "@everyone" or args[0].startswith("@") or args[0].startswith("\@") or args[0].startswith("`"):
+            if args[0] == "@everyone" or args[0].startswith("@") or args[0].startswith("\@") or args[0].startswith("`") or "@here" in args[0]:
                 await bot.delete_message(message)
                 await blacklistCommand(message.author, message.server, "userInfo")
                 return
