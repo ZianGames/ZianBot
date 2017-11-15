@@ -93,8 +93,6 @@ async def updateUsers():
             os.mkdir(server_dir)
             os.mkdir(server_dir + server.name.replace("/", "-"))
         for user in server.members:
-            if user.bot: # We don't need to store anything for bots
-                continue
             user_dir = os.getcwd() + "/config/users/" + server.id + "/" + user.id + "/"
             # User dir
             if os.path.isdir(user_dir):
@@ -110,6 +108,10 @@ async def updateUsers():
                 if user.id == "194822900577075200":
                     file = open(user_dir + "perms", "w")
                     file.write("Bot Owner")
+                    file.close()
+                elif user.bot:
+                    file = open(user_dir + "perms", "w")
+                    file.write("Bot")
                     file.close()
                 else:
                     file = open(user_dir + "perms", "w")
@@ -157,6 +159,7 @@ async def setPerm(server, user, perm):
 
 async def parsePerm(perm):
     perms = {"Bot Owner": 99999,
+             "Bot": 0,
              "Super Owner" : 3,
              "Owner" : 2,
              "Admin" : 1,
@@ -347,7 +350,7 @@ class cmd:
             await bot.send_message(message.channel, args[0] + " was not found!")
             return
         args.remove(args[0])
-        if " ".join(args) == "Bot Owner":
+        if " ".join(args) == "Bot Owner" or " ".join(args) == "Bot":
             await bot.send_message(message.channel, "You are not allowed to give someone that permission!")
         reply = await setPerm(message.server, user, " ".join(args))
         await bot.send_message(message.channel, reply)
