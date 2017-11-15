@@ -212,21 +212,35 @@ async def isBlacklisted(server, user, command):
 class cmd:
     async def help(args, message):
         cemb = discord.Embed(color=discord.Color.green())
-        addedcategories = []
+        ac = []
         categories = {}
         for c in commands:
-            usage = cmds[c]["usage"]
-            description = cmds[c]["description"]
-            perm = cmds[c]["perms"]
+            
             category = cmds[c]["category"]
 
-            
+            if category in ac:
+                categories[category].append(c)
+            else:
+                ac.append(category)
+                categories[category] = []
+                categories[category].append(c)
             
             # try:
             #     cemb.add_field(name=c, value="Usage: " + str(usage) + "\nDescription: " + description + "\nCategory: " + category)
             # except:
             #     print("Error in " + c)
             #     continue
+        for cat in ac:
+            catstr = ""
+            for c in categories[cat]:
+                usage = cmds[c]["usage"]
+                description = cmds[c]["description"]
+                perm = cmds[c]["perms"]
+                catstr += "*" + c + " " + str(usage) + " - " + description + "\n\n"
+                # catstr += "**" + c + "**" + " " + str(usage) + "\n\n"
+            cemb.add_field(name=cat.title(), value=catstr)
+        print(str(ac))
+        print(str(categories))
         await bot.send_message(destination=message.channel, embed=cemb)
 
     async def say(args, message):
@@ -247,14 +261,13 @@ class cmd:
 
     async def userinfo(args, message):
         name = " ".join(args)
-        if "@everyone" in args[0] or "@here" in args[0]:
+        if "@everyone" in name or "@here" in name:
                 await bot.delete_message(message)
                 await blacklistCommand(message.author, message.server, "userInfo")
                 return
         if len(args) == 0:
             user = message.author
         else:
-            print(args[0])
             user = await parseUser(message.server, name)
         emb = discord.Embed(color = discord.Color.green())
         d = message.channel
