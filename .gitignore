@@ -3,3 +3,4 @@ config/users/*
 config
 logger.py
 *.pyc
+config/config.json

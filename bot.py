@@ -247,14 +247,14 @@ class cmd:
 
     async def userinfo(args, message):
         name = " ".join(args)
+        if "@everyone" in args[0] or "@here" in args[0]:
+                await bot.delete_message(message)
+                await blacklistCommand(message.author, message.server, "userInfo")
+                return
         if len(args) == 0:
             user = message.author
         else:
             print(args[0])
-            if args[0] == "@everyone" or args[0].startswith("@") or args[0].startswith("\@") or args[0].startswith("`") or "@here" in args[0]:
-                await bot.delete_message(message)
-                await blacklistCommand(message.author, message.server, "userInfo")
-                return
             user = await parseUser(message.server, name)
         emb = discord.Embed(color = discord.Color.green())
         d = message.channel
