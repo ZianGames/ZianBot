@@ -1,0 +1,5 @@
+.vscode/settings.json
+config/users/*
+config
+logger.py
+*.pyc
