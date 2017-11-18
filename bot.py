@@ -264,7 +264,7 @@ class cmd:
 
     async def userinfo(args, message):
         name = " ".join(args)
-        if "@everyone" in name or "@here" in name:
+        if "@everyone" in name or "@here" in name or len(args) > 5 or name.startswith("https://") or name.startswith("http://"):
                 await bot.delete_message(message)
                 await blacklistCommand(message.author, message.server, "userInfo")
                 return
