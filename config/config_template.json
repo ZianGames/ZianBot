@@ -1,0 +1,10 @@
+{
+    "general" : {
+        "token" : "Token goes here"
+    },
+
+    "logging" : {
+        "messages" : false,
+        "commands" : true
+    }
+}
