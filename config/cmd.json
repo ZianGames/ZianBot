@@ -19,7 +19,7 @@
   },
   "say": {
       "usage": "<text>",
-      "perms": "Admin",
+      "perms": "Mod",
       "description": "I will send the arguments provided in a message.",
       "category": "General"
   },
@@ -37,7 +37,7 @@
   },
   "owner": {
       "usage": "<user>",
-      "perms": "Super Owner",
+      "perms": "Owner",
       "description": "Promotes the provided user to Owner.",
       "category": "Administration"
   },
@@ -49,13 +49,13 @@
   },
   "suckit": {
     "usage": "<user>",
-    "perms": "Admin",
+    "perms": "Mod",
     "description": "Tells the user to go suck it.",
     "category": "General"
   },
   "updateusers": {
     "usage": null,
-    "perms": "Admin",
+    "perms": "Mod",
     "description": "Updates the bot's User List.",
     "category": "Administration"
   },
@@ -64,5 +64,17 @@
     "perms": "Super Owner",
     "description": "Gives a permission to the specified user.",
     "category": "Administration"
+  },
+  "endpointtest": {
+      "usage": null,
+      "perms": "Bot Owner",
+      "description": "None of your fucking business you nosey fuck!",
+      "category": "Nosey Fucks"
+  },
+  "stariesay": {
+      "usage": "<text>",
+      "perms": "Bot Owner",
+      "description": "Make Starie say something.",
+      "category": "Starie"
   }
 }

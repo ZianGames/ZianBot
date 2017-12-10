@@ -4,3 +4,8 @@ config
 logger.py
 *.pyc
 config/config.json
+Starie-py.pyproj
+.vs/Starie-py/v15/.suo
+.gitattributes
+Starie-py.sln
+UpgradeLog.htm
