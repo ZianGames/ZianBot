@@ -5,9 +5,15 @@ import os
 import sys
 import time
 import asyncio
+from shutil import copyfile
 
+configfile = os.getcwd() + "/config/config.json"
+if not os.path.exists(configfile):
+    copyfile(os.getcwd() + "/config/config_template.json", configfile)
+    print("Config has been generated. Fill out the bot token and run this again.")
+    sys.exit()
 bot = discord.Client()
-config = json.load(open(os.getcwd() + "/config/config.json"))
+config = json.load(open(configfile))
 cmds = json.load(open(os.getcwd() + "/config/cmd.json"))
 scmds = json.load(open(os.getcwd() + "/config/scmd.json"))
 token = config["general"]["token"]
