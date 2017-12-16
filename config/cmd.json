@@ -29,12 +29,6 @@
       "description": "Displays information about the user provided in the User ID. Leave the User ID blank to display information about yourself.",
       "category": "Information"
   },
-  "preventsuicide": {
-      "usage": null,
-      "perms": "Everyone",
-      "description": "Displays the Suicide Prevention Hotline number.",
-      "category": "Information"
-  },
   "owner": {
       "usage": "<user>",
       "perms": "Owner",
@@ -47,34 +41,22 @@
       "description": "Promotes the provided user to Admin.",
       "category": "Administration"
   },
-  "suckit": {
-    "usage": "<user>",
-    "perms": "Mod",
-    "description": "Tells the user to go suck it.",
-    "category": "General"
-  },
-  "updateusers": {
-    "usage": null,
-    "perms": "Mod",
-    "description": "Updates the bot's User List.",
-    "category": "Administration"
-  },
   "giveperm": {
     "usage": "<mention> <perm>",
-    "perms": "Super Owner",
+    "perms": "Owner",
     "description": "Gives a permission to the specified user.",
     "category": "Administration"
   },
-  "endpointtest": {
-      "usage": null,
-      "perms": "Bot Owner",
-      "description": "None of your fucking business you nosey fuck!",
-      "category": "Nosey Fucks"
-  },
-  "stariesay": {
+  "announce": {
       "usage": "<text>",
       "perms": "Bot Owner",
-      "description": "Make Starie say something.",
-      "category": "Starie"
+      "description": "Sends an announcement across all servers that the bot is in.",
+      "category": "Administration"
+  },
+  "version": {
+      "usage": null,
+      "perms": "Everyone",
+      "description": "Displays the version of software Starlow is running.",
+      "category": "Information"
   }
 }

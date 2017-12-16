@@ -5,8 +5,10 @@ import os
 import sys
 import time
 import asyncio
+import random
 from shutil import copyfile
 
+bot_version = "1.0"
 configfile = os.getcwd() + "/config/config.json"
 if not os.path.exists(configfile):
     copyfile(os.getcwd() + "/config/config_template.json", configfile)
@@ -22,6 +24,7 @@ clogging = config["logging"]["commands"]
 commands = []
 scommands = []
 usercache = {}
+lobbies = []
 
 @bot.event
 async def on_ready():
@@ -385,6 +388,33 @@ class UserCache:
             return rval
         return self.findUserByMention(tofind)
 
+class NetplayLobby:
+    # REQUIRES
+    # name - Name of the lobby (String)
+    # owner - Owner of the lobby (discord.User() or discord.Member())
+    # players - List of players in the game (List of discord.User() or discord.Member() objects)
+    # time - Time until start of the game (Integer)
+    # password - Password of the lobby. (String or None)
+    # is_locked - Determines if the game is locked from people joining. The owner will have control over this. (Boolean)
+    def __init__(self, name, owner, password):
+        self.name = str(name)
+        self.owner = owner
+        self.players = [owner]
+        self.password = None
+        self.id = self.generateID()
+
+        if self.id != 0:
+            lobbies.append(self)
+        else:
+            return
+
+    def generateID(self):
+        id = random.randint(10000, 99999)
+        for lobby in lobbies:
+            if lobby.id != id:
+                return id
+        return 0
+
 class cmd:
     async def help(args, message):
         cemb = discord.Embed(color=discord.Color.green())
@@ -401,29 +431,34 @@ class cmd:
                     categories[category] = []
                     categories[category].append(c)
             except:
-                print(c + " has no command data!")
+                # print(c + " has no command data!")
+                None
             
             # try:
             #     cemb.add_field(name=c, value="Usage: " + str(usage) + "\nDescription: " + description + "\nCategory: " + category)
             # except:
             #     print("Error in " + c)
             #     continue
+        tlength = 0
         for cat in ac:
             catstr = ""
             for c in categories[cat]:
                 usage = cmds[c]["usage"]
+                if usage == None:
+                    usage = ""
                 description = cmds[c]["description"]
                 perm = cmds[c]["perms"]
-                catstr += "*" + c + " " + str(usage) + " - " + description + "\n\n"
+                if await hasPerms(message.server, message.author, perm):
+                    catstr += "*" + c + " " + usage + " - " + description + "\n\n"
+
                 # catstr += "**" + c + "**" + " " + str(usage) + "\n\n"
-            cemb.add_field(name=cat.title(), value=catstr)
-        print(str(ac))
-        print(str(categories))
-        await bot.send_message(destination=message.channel, embed=cemb)
+            if catstr != "":
+                cemb.add_field(name=cat.title(), value=catstr)
+        # print(str(ac))
+        await bot.send_message(message.channel, "{mention}, I DM'ed you a list of commands!".format(mention="<@{id}>".format(id=message.author.id)))
+        await bot.send_message(destination=message.author, embed=cemb)
 
     async def say(args, message):
-        if not await hasPerms(message.server, message.author, "Admin"):
-            return
         await bot.delete_message(message)
         argstr = ""
         for a in args:
@@ -646,5 +681,29 @@ class cmd:
 
         emb.add_field(name="Chess Emojis", value=emojis)
         await bot.send_message(destination=message.channel, embed=emb)
+
+    # async def lobby(args, message):
+    #     print(args)
+    #     if args[0] == "help":
+    #         await bot.send_message(message.channel, "Coming soon!")
+    #     elif args[0] == "create":
+    #         if len(args) == 3:
+    #             lobby = NetplayLobby(args[1], message.author)
+    #         else:
+    #             lobby = "Not enough arguments!"
+    #         await bot.send_message(message.channel, lobby)
+
+    async def run(args, message):
+        c = ' '.join(args)
+        exec(c)
+    
+    async def version(args, message):
+        ben = await getUser("194822900577075200")
+        emb = discord.Embed(title="Starlow", color=discord.Color.magenta())
+        emb.set_thumbnail(url=bot.user.avatar_url)
+        emb.add_field(name="Bot Software", value="Starie.py (Starlow)")
+        emb.add_field(name="Software Version", value=bot_version)
+        emb.set_footer(text="Bot software by bennyman123abc. Shoutout to Matthew for helping me through this development journey and being one of the best friends I could've ever asked for! Love ya man!")
+        await bot.send_message(destination = message.channel, embed = emb)
 bot.run(token)
         
